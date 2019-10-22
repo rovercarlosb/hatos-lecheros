@@ -21,6 +21,9 @@ try {
 
 window.axios = require('axios');
 
+//libreria para notificaciones
+window.swal = require('sweetalert');
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

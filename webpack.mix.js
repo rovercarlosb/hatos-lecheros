@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+require('laravel-mix-alias');
 
 /*
  |--------------------------------------------------------------------------
@@ -10,6 +11,10 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+//Alias
+mix.alias({
+	'@' :  '/resources/js'
+})
 
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');
