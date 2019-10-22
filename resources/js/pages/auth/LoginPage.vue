@@ -14,7 +14,7 @@
 				height="72"
 			/>
 			<h1 class="h3 mb-3 font-weight-normal">Inicia sesión</h1>
-			<label for="inputEmail" class="sr-only">Correo</label>
+			<label for="inputEmail" class="sr-only pb-3">Correo</label>
 			<input
 				type="email"
 				id="inputEmail"
@@ -102,7 +102,7 @@ user-select: none;
 html,body{
   color:white;
   font-family:'Opens Sans',helvetica;
-  height:70%;
+  height:72%;
   width:100%;
   margin: 0px;
 }
@@ -110,7 +110,7 @@ html,body{
 body {
   -ms-flex-align: center;
   align-items: center;
-  padding-top: 30px;
+  padding-top: 38px;
   padding-bottom: 7%;
 }
 
@@ -128,7 +128,6 @@ body {
 .form-signin {
   width: 100%;
   max-width: 330px;
-  padding: 15px;
   margin: auto;
 }
 .form-signin .checkbox {
@@ -138,7 +137,7 @@ body {
   position: relative;
   box-sizing: border-box;
   height: auto;
-  padding: 10px;
+  padding: 15px;
   font-size: 16px;
 }
 .form-signin .form-control:focus {

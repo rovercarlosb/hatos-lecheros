@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Http\Requests\UserStoreRequest;
+use App\Models\User\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -24,6 +25,16 @@ class AuthController extends Controller {
 			'status' => 'success',
 		])
 			->header('Authorization', $token);
+	}
+
+	public function register(UserStoreRequest $request) {
+		$user = new User;
+		$user->create($request->except('_token'));
+
+		return response([
+			'status' => 'success',
+			'data' => $user,
+		], 200);
 	}
 
 	public function user(Request $request) {
