@@ -9,9 +9,18 @@ import VueRouter from 'vue-router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import routes from '@/routes.js';
+import eventBus from '@/plugins/event-bus.js';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { TableComponent, TableColumn } from "vue-table-component";
+import 'vue-table-component/docs/table-component.css';
+
 
 require('./bootstrap');
+
 window.Vue = require('vue');
+Vue.use(eventBus)
 Vue.use(VueRouter);
 Vue.use(VueAxios,axios);
 
@@ -39,6 +48,21 @@ Vue.use(require('@websanova/vue-auth'), {
    http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
 });
+
+Vue.use(TableComponent, {
+    tableClass: '',
+    theadClass: '',
+    tbodyClass: '',
+    filterPlaceholder: 'Buscar',
+    filterNoResults: 'No hay resultados',
+});
+
+
+library.add(fas) 
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+Vue.component('table-component', TableComponent);
+Vue.component('table-column', TableColumn);
 
 App.router = Vue.router;
 

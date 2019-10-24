@@ -37,12 +37,38 @@ class AuthController extends Controller {
 		], 200);
 	}
 
+	public function update(UserStoreRequest $request, $id) {
+		$user = User::find($id)->update(['name' => $request->name, 'email' => $request->email]);
+		return response([
+			'status' => 'success',
+			'data' => $user,
+		], 200);
+	}
+
+	public function delete($id) {
+		$user = User::find($id)->delete();
+		return response([
+			'status' => 'success',
+			'data' => $user,
+		], 200);
+	}
+
 	public function user(Request $request) {
 		$user = User::find(Auth::user()->id);
 		return response([
 			'status' => 'success',
 			'data' => $user,
 		]);
+	}
+
+	public function index() {
+		$users = User::all();
+
+		return response([
+			'status' => 'success',
+			'data' => $users,
+		]);
+
 	}
 	public function refresh() {
 		return response([

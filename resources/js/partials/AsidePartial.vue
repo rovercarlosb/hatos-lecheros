@@ -4,8 +4,9 @@
 			<ul class="nav flex-column">
 				<li class="nav-item">
 					<a class="nav-link active" href="#">
-						<span data-feather="home"></span>
-						Dashboard <span class="sr-only">(current)</span>
+						<font-awesome-icon icon="user-plus" />
+						Dashboard
+						<span class="sr-only">(current)</span>
 					</a>
 				</li>
 				<li class="nav-item">
@@ -33,13 +34,17 @@
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<span data-feather="layers"></span>
-						Integrations
-					</a>
+					<router-link
+						tag="a"
+						:to="{ name: 'Users' }"
+						class="nav-link"
+					>
+						<font-awesome-icon icon="users" />
+
+						Usuarios
+					</router-link>
 				</li>
 			</ul>
-
 			<h6
 				class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
 			>
@@ -88,4 +93,11 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+	.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+  opacity: 0
+}
+</style>

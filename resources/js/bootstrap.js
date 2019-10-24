@@ -24,6 +24,11 @@ window.axios = require('axios');
 //libreria para notificaciones
 window.swal = require('sweetalert');
 
+//function para recargar
+
+window.reload = () =>{
+	setTimeout( window.location.reload(), 6000);
+}
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

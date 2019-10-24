@@ -21,7 +21,7 @@
 }
 .slide-fade-enter, .slide-fade-leave-to
 /* .slide-fade-leave-active for <2.1.8 */ {
-  transform: translateX(10px);
+  transform: translateX(50px);
   opacity: 0;
 }
 </style>
