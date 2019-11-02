@@ -24,11 +24,12 @@ window.axios = require('axios');
 //libreria para notificaciones
 window.swal = require('sweetalert');
 
-//function para recargar
+//utils para usar en los componentes
 
-window.reload = () =>{
-	setTimeout( window.location.reload(), 6000);
-}
+import utils from './utils.js';
+
+window.utils = utils;
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /**

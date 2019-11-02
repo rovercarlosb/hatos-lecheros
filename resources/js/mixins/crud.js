@@ -1,7 +1,9 @@
 const crudMixin = {
 	created() {
-		this.$bus.$on("register", () => {
-			this.register();
+		this.$bus.$on("register", (idTarget) => {
+			if(this.id == idTarget){
+				this.register(this.createUrl, idTarget);
+			}
 		});
 
 		this.$bus.$on("edit", () => {
@@ -15,7 +17,21 @@ const crudMixin = {
 
 	methods: {
 		
-		register() {
+		register(url ,id) {
+			this.axios
+				.post(url, this.form)
+				.then(response => {
+					swal(
+						"Exelente",
+						"Se realizo registro correctamente",
+						"success"
+					).then(value => {
+						utils.reload();
+					});
+				})
+				.catch((error) => {
+					swal("Error", "Error al crear", "error");
+				});
 			
 		},
 
@@ -31,7 +47,7 @@ const crudMixin = {
 						"registro modificado correctamente",
 						"success"
 					).then(value => {
-						reload();
+						utils.reload();
 					});
 				})
 				.catch(error => {
@@ -57,7 +73,7 @@ const crudMixin = {
 							swal("Tu registro ha sido borrado!", {
 								icon: "success"
 							}).then(value => {
-								reload();
+								utils.reload();
 							});
 						})
 						.catch(error => {

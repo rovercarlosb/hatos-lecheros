@@ -6,6 +6,6 @@ if (!function_exists('get_model_id')) {
 	 *
 	 */
 	function get_model_id($request, $parametro = "id") {
-		return $request->getMethod() == "POST" ? null : $request->route()->parameters[$parametro];
+		return $request->getMethod() == "POST" ? null : $request->route()->parameters[$parametro]->id;
 	}
 }

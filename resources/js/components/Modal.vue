@@ -4,8 +4,6 @@
 		class="modal fade"
 		:id="idTarget"
 		tabindex="-1"
-		role="dialog"
-		aria-labelledby="exampleModalLabel"
 		aria-hidden="true"
 	>
 		<div class="modal-dialog" role="document">
@@ -34,7 +32,7 @@
 					>
 						Cerrar
 					</button>
-					<button type="button" @click.prevent="registerHandler" class="btn btn-primary" v-if="accion == 'create'">
+					<button type="button" @click.prevent.stop="registerHandler()" class="btn btn-primary" v-if="accion == 'create'">
 						Guardar
 					</button>
 					<button type="button" @click.prevent="editHandler" class="btn btn-warning" v-if="accion == 'edit'">
@@ -50,10 +48,6 @@
 <script>
 export default {
 	name: "Modal",
-
-	data() {
-		return {};
-	},
 
 	props: {
 
@@ -77,7 +71,7 @@ export default {
 	methods:{
 
 		registerHandler(){
-			this.$bus.$emit('register');
+			this.$bus.$emit('register',this.idTarget);
 		},
 
 		editHandler(){

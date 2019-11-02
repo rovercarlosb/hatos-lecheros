@@ -1,22 +1,22 @@
 <template>
 	<admin-layout>
 		<template v-slot:header>
-			<h3>Usuarios</h3>
+			<h3>Empleados</h3>
 			<button
 				class="btn btn-primary"
 				data-toggle="modal"
-				data-target="#users"
+				data-target="#employees"
 				@click="
-					setTitle('Crear Usuario'), setAccion('create'), setClear()
+					setTitle('Crear Empleado'), setAccion('create'), setClear()
 				"
 			>
 				<font-awesome-icon icon="user-plus" />
-				Crear nuevo usuario
+				Crear nuevo empleado
 			</button>
 
 			<!-- Modals -->
-			<modal :title="title" idTarget="users" :accion="accion">
-				<form-user></form-user>
+			<modal :title="title" idTarget="employees" :accion="accion">
+				<form-employee></form-employee>
 			</modal>
 		</template>
 
@@ -28,16 +28,23 @@
 					sort-order="asc"
 					ref="table"
 				>
-					<table-column show="name" label="Nombre"></table-column>
 					<table-column
-						show="email"
-						label="Correo"
+						show="name"
+						label="Nombre"
+						:filterable="true"
 					></table-column>
 					<table-column
-						show="rol_user"
-						label="Rol"
-						:filterable="false"
+						show="identificacion_number"
+						label="Cedula"
 					></table-column>
+					<table-column
+						show="age"
+						label="Edad"
+						:filterable="true"
+					>
+					</table-column>
+					<table-column show="cargo" label="Cargo"> </table-column>
+
 					<table-column
 						label="Accion"
 						:sortable="false"
@@ -53,9 +60,9 @@
 							<button
 								class="btn btn-warning"
 								data-toggle="modal"
-								data-target="#users"
+								data-target="#employees"
 								@click="
-									setTitle('Editar Usuario'),
+									setTitle('Editar Empleado'),
 										setAccion('edit'),
 										setData(row)
 								"
@@ -73,11 +80,11 @@
 <script>
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import Modal from "@/components/Modal.vue";
-import FormUser from "./FormUser";
-import mutatorMixin from '@/mixins/mutator.js'
+import FormEmployee from "./FormEmployee";
+import mutatorMixin from "@/mixins/mutator.js";
 
 export default {
-	name: "UsersPage",
+	name: "EmployeesPage",
 
 	mixins: [mutatorMixin],
 
@@ -85,19 +92,17 @@ export default {
 		return {
 			title: "",
 			accion: "",
-			fecthUrl: '/users',
+			fecthUrl: "/employees"
 		};
 	},
 
 	components: {
 		AdminLayout,
 		Modal,
-		FormUser
+		FormEmployee
 	},
 
-	methods: {
-		
-	}
+	methods: {}
 };
 </script>
 

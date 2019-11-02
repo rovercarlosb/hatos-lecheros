@@ -3,35 +3,48 @@
 		<div class="sidebar-sticky">
 			<ul class="nav flex-column">
 				<li class="nav-item">
-					<a class="nav-link active" href="#">
-						<font-awesome-icon icon="user-plus" />
-						Dashboard
-						<span class="sr-only">(current)</span>
-					</a>
+					<router-link
+						tag="a"
+						:to="{ name: 'Employees' }"
+						class="nav-link"
+					>
+						<font-awesome-icon icon="user-tie" />
+
+						Empleados
+					</router-link>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<span data-feather="file"></span>
-						Orders
-					</a>
+					<router-link
+						tag="a"
+						:to="{ name: 'Cows' }"
+						class="nav-link"
+					>
+						<font-awesome-icon icon="democrat" />
+
+						Reses
+					</router-link>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<span data-feather="shopping-cart"></span>
-						Products
-					</a>
+					<router-link
+						tag="a"
+						:to="{ name: 'Cows' }"
+						class="nav-link"
+					>
+						<font-awesome-icon icon="tractor" />
+
+						Insumos
+					</router-link>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<span data-feather="users"></span>
-						Customers
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="#">
-						<span data-feather="bar-chart-2"></span>
-						Reports
-					</a>
+					<router-link
+						tag="a"
+						:to="{ name: 'Vaccines' }"
+						class="nav-link"
+					>
+						<font-awesome-icon icon="syringe" />
+
+						Vacunas aplicadas
+					</router-link>
 				</li>
 				<li class="nav-item">
 					<router-link

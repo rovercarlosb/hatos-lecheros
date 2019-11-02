@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\JsonResponse;
 
-class UserStoreRequest extends FormRequest {
+class EmployeeStoreRequest extends FormRequest {
 	/**
 	 * Determine if the user is authorized to make this request.
 	 *
@@ -22,19 +21,18 @@ class UserStoreRequest extends FormRequest {
 	 */
 	public function rules() {
 
-		$id = get_model_id($this, 'user');
+		$id = get_model_id($this, 'employee');
 
 		if ($id) {
 			return [
 				'name' => 'required|string',
-				'email' => 'required|email|unique:users,email,' . $id,
+				'identificacion_number' => 'required|unique:employees,identificacion_number,' . $id,
 			];
 
 		} else {
 			return [
 				'name' => 'required|string',
-				'email' => 'required|email|unique:users',
-				'password' => 'required|string|min:6|max:10',
+				'identificacion_number' => 'required|unique:employees|min:7|max:8',
 			];
 
 		}
@@ -44,10 +42,9 @@ class UserStoreRequest extends FormRequest {
 
 		return [
 			'name.required' => 'El nombre es obligatorio',
-			'email.required' => 'El Correo es obligatorio',
-			'password.required' => 'La clave es obligatoria',
-			'email.unique' => 'Este correo ya existe',
-			'password.min' => 'La clave debe tener al menos 6 caracteres',
+			'identificacion_number.min' => 'La cedula debe tener al menos 7 caracteres',
+			'identificacion_number.max' => 'La cedula debe tener maximo 8 caracteres',
+			'identificacion_number.unique' => 'Esta cedula ya fue registrada',
 
 		];
 	}

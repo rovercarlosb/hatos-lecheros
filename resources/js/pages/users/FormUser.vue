@@ -82,8 +82,10 @@ export default {
 				confirmPassword: ""
 			},
 
+			id: 'users',
 			deleteUrl: '/user/delete',
 			updateUrl: '/user/update',
+			createUrl: 'auth/register',
 
 		};
 	},
@@ -108,7 +110,7 @@ export default {
 
 	methods: {
 
-		register() {
+		register(url) {
 			var app = this;
 
 			if (app.form.password != app.form.confirmPassword) {
@@ -128,7 +130,7 @@ export default {
 						"Usuario registrado correctamente",
 						"success"
 					).then(value => {
-						reload();
+						utils.reload();
 					});
 				},
 				error: function(data) {

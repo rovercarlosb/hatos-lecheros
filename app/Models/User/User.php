@@ -29,6 +29,7 @@ class User extends Authenticatable implements JWTSubject {
 		'password', 'remember_token',
 	];
 
+	protected $append = ['rol_user'];
 	/**
 	 * The attributes that should be cast to native types.
 	 *

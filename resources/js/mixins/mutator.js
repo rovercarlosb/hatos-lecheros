@@ -1,4 +1,5 @@
 const mutatorMixin = {
+
 	methods: {
 		setTitle(title) {
 			this.title = title;
@@ -8,8 +9,8 @@ const mutatorMixin = {
 			this.accion = accion;
 		},
 
-		setData(data , event = false) {
-			this.$bus.$emit("data", {data, event});
+		setData(data, event = false) {
+			this.$bus.$emit("data", { data, event });
 		},
 
 		setClear() {
@@ -23,6 +24,8 @@ const mutatorMixin = {
 		async fetchData() {
 			const response = await axios.get(this.fecthUrl);
 			return response.data;
+			this.$refs.table.refresh();
+
 		}
 	}
 };

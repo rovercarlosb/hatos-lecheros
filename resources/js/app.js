@@ -13,7 +13,7 @@ import eventBus from '@/plugins/event-bus.js';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { TableComponent, TableColumn } from "vue-table-component";
+import  TableComponentPlugin, { TableComponent, TableColumn } from "vue-table-component";
 import 'vue-table-component/docs/table-component.css';
 
 
@@ -49,11 +49,11 @@ Vue.use(require('@websanova/vue-auth'), {
    router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
 });
 
-Vue.use(TableComponent, {
+TableComponentPlugin.settings({
     tableClass: '',
     theadClass: '',
     tbodyClass: '',
-    filterPlaceholder: 'Buscar',
+    filterPlaceholder: 'Filtrar',
     filterNoResults: 'No hay resultados',
 });
 
