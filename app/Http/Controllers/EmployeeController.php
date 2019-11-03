@@ -12,10 +12,10 @@ class EmployeeController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index($vaccination = null) {
+	public function index($position = null) {
 
-		if ($vaccination) {
-			$employees = Employee::vaccination()->get();
+		if ($position) {
+			$employees = Employee::position($position)->get();
 		} else {
 			$employees = Employee::all();
 		}

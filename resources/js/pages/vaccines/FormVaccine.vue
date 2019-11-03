@@ -36,9 +36,7 @@
 
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon1"
-					>mg</span
-				>
+				<span class="input-group-text" id="basic-addon1">mg</span>
 			</div>
 			<input
 				type="text"
@@ -56,6 +54,15 @@
 					>Vacunador</span
 				>
 			</div>
+
+			<p
+				v-if="employees.length < 1"
+				class="form-control"
+				aria-describedby="basic-addon4"
+			>
+				<b>No hay vacunadores disponibles</b>
+			</p>
+
 			<select
 				class="form-control"
 				id="exampleFormControlSelect1"
@@ -84,6 +91,7 @@ export default {
 	data() {
 		return {
 			form: {
+				id: "",
 				employee_id: "",
 				cow_id: "",
 				name_vacuna: "",
@@ -96,34 +104,20 @@ export default {
 			deleteUrl: "/vaccine/delete",
 			updateUrl: "/vaccine/update",
 			createUrl: "/vaccine/register",
-			id: 'vaccines',
-			fecthEmployeesUrl: `/employees/${true}`
+			id: "vaccines",
+			fecthEmployeesUrl: `/employees/vaccination`
 		};
 	},
 
 	created() {
-		this.$bus.$on("data", ({ data, event }) => {
-			this.form.cow_id = data.id;
-
-			if (event) {
-				//Si se manda event como true, se ejecuta automatico el evento de eliminar
-				this.delete(this.deleteUrl);
-			}
+		this.$bus.$on("cow_id", ({ id }) => {
+			this.form.cow_id = id;
 		});
 
 		this.fetchEmployees(this.fecthEmployeesUrl);
 	},
 
 	methods: {
-		resetForm() {
-			this.form.id = null;
-			this.form.employee_id = "";
-			this.form.cow_id = "";
-			this.form.name_vacuna = "";
-			this.form.date = "";
-			this.form.quantity = "";
-		},
-
 		fetchEmployees(url) {
 			axios.get(url).then(response => {
 				this.employees = response.data.data;
@@ -131,6 +125,9 @@ export default {
 		}
 	},
 
+	updated(){
+		this.$destroy();
+	}
 };
 </script>
 

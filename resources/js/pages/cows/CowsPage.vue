@@ -7,9 +7,7 @@
 				data-toggle="modal"
 				data-target="#cows"
 				@click="
-					setTitle('Registrar Res'),
-						setAccion('create'),
-						setClear()
+					setTitle('Registrar Res'), setAccion('create'), setClear()
 				"
 			>
 				<font-awesome-icon icon="user-plus" />
@@ -18,13 +16,12 @@
 
 			<!-- Modals -->
 			<modal :title="title" idTarget="cows" :accion="accion">
-					<form-cow></form-cow>				
+				<form-cow></form-cow>
 			</modal>
 
-			<modal :title="title" idTarget="vaccines" :accion="accion" >
-					<form-vaccine></form-vaccine>
+			<modal :title="title" idTarget="vaccines" :accion="accion">
+				<form-vaccine></form-vaccine>
 			</modal>
-
 		</template>
 
 		<template v-slot:body>
@@ -95,7 +92,11 @@
 								class="btn btn-sm btn-primary"
 								data-toggle="modal"
 								data-target="#vaccines"
-								@click="setData(row),setTitle('Aplicar vacuna a res'),setAccion('create')"
+								@click="
+									setCowId(row.id),
+										setTitle('Aplicar vacuna a res'),
+										setAccion('create')
+								"
 							>
 								<font-awesome-icon icon="syringe" />
 							</button>
@@ -123,7 +124,7 @@ export default {
 		return {
 			title: "",
 			accion: "",
-			fecthUrl: "/cows",
+			fecthUrl: "/cows"
 		};
 	},
 
@@ -138,8 +139,11 @@ export default {
 		setChangeMilking(title, item) {
 			this.$bus.$emit("changeMilkingState", { title, item });
 		},
-	},
 
+		setCowId(id) {
+			this.$bus.$emit("cow_id", { id: id });
+		}
+	}
 };
 </script>
 

@@ -91,19 +91,6 @@ export default {
 	},
 
 	created() {
-		this.$bus.$on("data", ({ data, event }) => {
-			this.form.type = data.type;
-			this.form.weight = data.weight;
-			this.form.id = data.id;
-			this.form.year_birth = data.year_birth;
-			this.form.code = data.code;
-
-			if (event) {
-				//Si se manda event como true, se ejecuta automatico el evento de eliminar
-				this.delete(this.deleteUrl);
-			}
-		});
-
 		this.$bus.$on("changeMilkingState", ({title, item}) => {
 			this.changeMilkingState(this.updateUrl, title, item);
 		});
@@ -111,15 +98,6 @@ export default {
 
 
 	methods: {
-
-		resetForm() {
-			this.form.id = null;
-			this.form.type = "";
-			this.form.weight = "";
-			this.form.year_birth = "";
-			this.form.code = "";
-		},
-
 
 		changeMilkingState(url ,title, item) {
 			item.milking = !item.milking;

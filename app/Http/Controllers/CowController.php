@@ -7,13 +7,40 @@ use App\Models\Cow\Cow;
 use Illuminate\Http\Request;
 
 class CowController extends Controller {
+
+	public function countTotal() {
+
+		$total = Cow::count();
+
+		return response([
+			'status' => 'success',
+			'data' => $total,
+		], 200);
+
+	}
+
+	public function statisticsCows() {
+
+		$statistics = Cow::cowStatistics();
+
+		return response([
+			'status' => 'success',
+			'data' => $statistics,
+		], 200);
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
-		$cows = Cow::all();
+	public function index($milking = null) {
+		if ($milking) {
+			$cows = Cow::milking()->get();
+		} else {
+			$cows = Cow::all();
+		}
 
 		return response([
 			'status' => 'success',

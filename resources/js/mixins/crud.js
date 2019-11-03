@@ -1,7 +1,7 @@
 const crudMixin = {
 	created() {
-		this.$bus.$on("register", (idTarget) => {
-			if(this.id == idTarget){
+		this.$bus.$on("register", idTarget => {
+			if (this.id == idTarget) {
 				this.register(this.createUrl, idTarget);
 			}
 		});
@@ -13,11 +13,21 @@ const crudMixin = {
 		this.$bus.$on("clear", () => {
 			this.resetForm();
 		});
+
+		this.$bus.$on("data", ({ data, event }) => {
+			for (let property in this.form) {
+				this.form[property] = data[property];
+			}
+
+			if (event) {
+				//Si se manda event como true, se ejecuta automatico el evento de eliminar
+				this.delete(this.deleteUrl);
+			}
+		});
 	},
 
 	methods: {
-		
-		register(url ,id) {
+		register(url, id) {
 			this.axios
 				.post(url, this.form)
 				.then(response => {
@@ -29,10 +39,9 @@ const crudMixin = {
 						utils.reload();
 					});
 				})
-				.catch((error) => {
+				.catch(error => {
 					swal("Error", "Error al crear", "error");
 				});
-			
 		},
 
 		edit(url) {
@@ -87,6 +96,13 @@ const crudMixin = {
 			});
 		},
 
+		resetForm() {
+			for(let property in this.form){
+				this.form[property] = ''
+			}
+
+			this.form.id = null;
+		},
 	}
 };
 

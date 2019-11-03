@@ -2,10 +2,31 @@
 
 namespace App\Models\Cow;
 use App\Models\Cow\CowMutator;
+use App\Models\Cow\CowScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Cow extends Model {
-	use CowMutator;
+	use CowMutator,
+		CowScope;
+
 	protected $guarded = [];
 	protected $appends = ['ordeno'];
+
+	public static function cowStatistics() {
+
+		$labels = ['girolando', 'holstein', 'brahman', 'pardo_suizo'];
+		$counts = [];
+
+		foreach ($labels as $label) {
+
+			$countTypeCows = self::where('type', $label)->count();
+			$counts[] = $countTypeCows;
+		}
+
+		$datasets = ['label' => 'Tipos de Reses', 'data' => $counts];
+		$data = ['labels' => $labels, 'datasets' => [$datasets]];
+
+		return json_encode($data);
+	}
+
 }

@@ -2,23 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\VaccineStoreRequest;
-use App\Models\Vaccine\Vaccine;
+use App\Http\Requests\ExtractionStoreRequest;
+use App\Models\Extraction\Extraction;
 use Illuminate\Http\Request;
 
-class VaccineController extends Controller {
+class ExtractionController extends Controller {
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-
-		$vaccines = Vaccine::all();
+		$extractions = Extraction::all();
 
 		return response([
 			'status' => 'success',
-			'data' => $vaccines,
+			'data' => $extractions,
+		], 200);
+	}
+
+	public function todayExtractions() {
+
+		$extractions = Extraction::whereDate('date', date('Y-m-d'))->get();
+
+		return response([
+			'status' => 'success',
+			'data' => $extractions,
 		], 200);
 
 	}
@@ -38,35 +47,33 @@ class VaccineController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function register(VaccineStoreRequest $request) {
-
-		$vaccine = new Vaccine();
-		$vaccine->create($request->except('_token'));
+	public function register(ExtractionStoreRequest $request) {
+		$extraction = new Extraction();
+		$extraction->create($request->except('_token'));
 
 		return response([
 			'status' => 'success',
-			'data' => $vaccine,
+			'data' => $extraction,
 		], 200);
-
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Vaccine  $vaccine
+	 * @param  \App\Models\Extraction\Extraction  $extraction
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Vaccine $vaccine) {
+	public function show(Extraction $extraction) {
 		//
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  \App\Vaccine  $vaccine
+	 * @param  \App\Models\Extraction\Extraction  $extraction
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Vaccine $vaccine) {
+	public function edit(Extraction $extraction) {
 		//
 	}
 
@@ -74,31 +81,30 @@ class VaccineController extends Controller {
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Vaccine  $vaccine
+	 * @param  \App\Models\Extraction\Extraction  $extraction
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Vaccine $vaccine) {
-		$vaccine->update($request->all());
+	public function update(ExtractionStoreRequest $request, Extraction $extraction) {
+		$extraction->update($request->all());
 
 		return response([
 			'status' => 'success',
-			'data' => $vaccine,
+			'data' => $extraction,
 		], 200);
-
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Vaccine  $vaccine
+	 * @param  \App\Models\Extraction\Extraction  $extraction
 	 * @return \Illuminate\Http\Response
 	 */
-	public function delete(Vaccine $vaccine) {
-		$vaccine->delete();
+	public function delete(Extraction $extraction) {
+		$extraction->delete();
 
 		return response([
 			'status' => 'success',
-			'data' => $vaccine,
+			'data' => $extraction,
 		], 200);
 	}
 }

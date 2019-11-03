@@ -1,11 +1,24 @@
 <template>
 	<admin-layout>
 		<template v-slot:header>
-			<h3>Todas las vacunas aplicadas</h3>
+			<h3>Extracciones de leche</h3>
+			<button
+				class="btn btn-primary"
+				data-toggle="modal"
+				data-target="#extractions"
+				@click="
+					setTitle('Registrar nueva extraccion'),
+						setAccion('create'),
+						setClear()
+				"
+			>
+				<font-awesome-icon icon="plus" />
+				Registrar nueva extraccion
+			</button>
 
 			<!-- Modals -->
-			<modal :title="title" idTarget="vaccines" :accion="accion">
-				<form-vaccine></form-vaccine>
+			<modal :title="title" idTarget="extractions" :accion="accion">
+				<form-extraction></form-extraction>
 			</modal>
 		</template>
 
@@ -19,26 +32,26 @@
 				>
 					<table-column
 						show="name_employee"
-						label="Nombre del vacunador"
+						label="Nombre del ordeñador"
 						:filterable="true"
 					></table-column>
 					<table-column
 						show="code_cow"
-						label="Codigo de la res vacunada"
+						label="Codigo de la res ordeñada"
 					></table-column>
 					<table-column
-						show="name_vacuna"
-						label="Vacuna"
+						show="date"
+						label="Fecha de ordeño"
 						:filterable="true"
 					>
 					</table-column>
-					<table-column show="date" label="Fecha aplicada"> </table-column>
-					<table-column label="Cantidad"> 
-						<template slot-scope="row">
-							{{row.quantity}} mg
-						</template>
+
+					<table-column
+						show="quantity"
+						label="Leche ordeñada LTS"
+						:filterable="true"
+					>
 					</table-column>
-					
 
 					<table-column
 						label="Accion"
@@ -47,17 +60,17 @@
 					>
 						<template slot-scope="row">
 							<button
-								class="btn btn-danger"
+								class="btn btn-sm btn-danger"
 								@click="setData(row, true)"
 							>
 								Eliminar
 							</button>
 							<button
-								class="btn btn-warning"
+								class="btn btn-sm btn-warning"
 								data-toggle="modal"
-								data-target="#vaccines"
+								data-target="#extractions"
 								@click="
-									setTitle('Editar Vacuna aplicada'),
+									setTitle('Editar Extraccion'),
 										setAccion('edit'),
 										setData(row)
 								"
@@ -75,11 +88,11 @@
 <script>
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import Modal from "@/components/Modal.vue";
-import FormVaccine from "./FormVaccine";
+import FormExtraction from "./FormExtraction";
 import mutatorMixin from "@/mixins/mutator.js";
 
 export default {
-	name: "VaccinesPage",
+	name: "ExtractionPage",
 
 	mixins: [mutatorMixin],
 
@@ -87,17 +100,19 @@ export default {
 		return {
 			title: "",
 			accion: "",
-			fecthUrl: "/vaccines"
+			fecthUrl: "/extractions"
 		};
 	},
 
 	components: {
 		AdminLayout,
 		Modal,
-		FormVaccine
+		FormExtraction,
 	},
 
-	methods: {}
+	methods: {
+
+	}
 };
 </script>
 

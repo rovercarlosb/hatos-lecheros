@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Models\Vaccine;
+namespace App\Models\Extraction;
 
-trait VaccineMutator {
+trait ExtractionMutator {
 
 	public function getNameEmployeeAttribute() {
 		return $this->employee->name ?? '';

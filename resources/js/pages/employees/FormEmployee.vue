@@ -17,7 +17,7 @@
 
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text" id="basic-addon2">0000000</span>
+				<span class="input-group-text" id="basic-addon2">Cedula ( ingresa solo los numeros )</span>
 			</div>
 
 			<input
@@ -91,29 +91,11 @@ export default {
 	},
 
 	created() {
-		this.$bus.$on("data", ({ data, event }) => {
-			this.form.name = data.name;
-			this.form.identificacion_number = data.identificacion_number;
-			this.form.id = data.id;
-			this.form.date_birth = data.date_birth;
-			this.form.position = data.position;
 
-			if (event) {
-				//Si se manda event como true, se ejecuta automatico el evento de eliminar
-				this.delete(this.deleteUrl);
-			}
-		});
 	},
 
 	methods: {
 
-		resetForm() {
-			this.form.id = null;
-			this.form.name = "";
-			this.form.identificacion_number = "";
-			this.form.date_birth = "";
-			this.form.position = "";
-		}
 	}
 };
 </script>

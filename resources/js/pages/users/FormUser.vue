@@ -92,20 +92,6 @@ export default {
 
 	created() {
 
-		this.$bus.$on("data", ({ data, event }) => {
-			this.form.name = data.name;
-			this.form.email = data.email;
-			this.form.id = data.id;
-			this.form.password = "";
-			this.form.confirmPassword = "";
-
-			if(event){
-				//Si se manda event como true, se ejecuta automatico el evento de eliminar
-				this.delete(this.deleteUrl);
-
-			}
-		});
-
 	},
 
 	methods: {
@@ -140,13 +126,6 @@ export default {
 			});
 		},
 
-		resetForm() {
-			this.form.id = null;
-			this.form.name = "";
-			this.form.email = "";
-			this.form.password = "";
-			this.form.confirmPassword = "";
-		}
 	}
 };
 </script>

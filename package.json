@@ -30,10 +30,12 @@
         "@fortawesome/free-solid-svg-icons": "^5.11.2",
         "@fortawesome/vue-fontawesome": "^0.1.7",
         "@websanova/vue-auth": "^2.21.14-beta",
+        "chart.js": "^2.9.2",
         "laravel-mix-alias": "^1.0.2",
         "moment": "^2.24.0",
         "sweetalert": "^2.1.2",
         "vue-axios": "^2.1.5",
+        "vue-chartjs": "^3.5.0",
         "vue-table-component": "^1.9.2"
     }
 }

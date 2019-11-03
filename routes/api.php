@@ -30,13 +30,15 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 	//Employees
 	Route::post('/employee/register', 'EmployeeController@register');
-	Route::get('/employees/{vaccination?}', 'EmployeeController@index');
+	Route::get('/employees/{position?}', 'EmployeeController@index');
 	Route::put('/employee/update/{employee}', 'EmployeeController@update');
 	Route::delete('/employee/delete/{employee}', 'EmployeeController@delete');
 
 	//Cows
 	Route::post('/cow/register', 'CowController@register');
-	Route::get('/cows', 'CowController@index');
+	Route::get('/cows/total', 'CowController@countTotal');
+	Route::get('/cows/statistics', 'CowController@statisticsCows');
+	Route::get('/cows/{milking?}', 'CowController@index');
 	Route::put('/cow/update/{cow}', 'CowController@update');
 	Route::delete('/cow/delete/{cow}', 'CowController@delete');
 
@@ -45,6 +47,13 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 	Route::get('/vaccines', 'VaccineController@index');
 	Route::put('/vaccine/update/{vaccine}', 'VaccineController@update');
 	Route::delete('/vaccine/delete/{vaccine}', 'VaccineController@delete');
+
+	//Extractions
+	Route::post('/extraction/register', 'ExtractionController@register');
+	Route::get('/extractions', 'ExtractionController@index');
+	Route::get('/extractions/today', 'ExtractionController@todayExtractions');
+	Route::put('/extraction/update/{extraction}', 'ExtractionController@update');
+	Route::delete('/extraction/delete/{extraction}', 'ExtractionController@delete');
 
 });
 

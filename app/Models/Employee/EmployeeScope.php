@@ -4,9 +4,9 @@ namespace App\Models\Employee;
 
 trait EmployeeScope {
 
-	public function scopeVaccination($query) {
+	public function scopePosition($query, $position) {
 
-		return $query->where('position', '=', 'vaccination');
+		return $query->where('position', '=', $position);
 	}
 }
 

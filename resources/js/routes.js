@@ -1,9 +1,10 @@
-import AdminLayout from "./layouts/AdminLayout.vue";
+import HomePage from "./pages/HomePage.vue";
 import LoginPage from "./pages/auth/LoginPage.vue";
 import UsersPage from "./pages/users/UsersPage";
 import EmployeesPage from "./pages/employees/EmployeesPage";
 import CowsPage from "./pages/cows/CowsPage";
-import VaccinesPage from './pages/vaccines/VaccinesPage';
+import VaccinesPage from "./pages/vaccines/VaccinesPage";
+import ExtractionsPage from "./pages/extractions/ExtractionsPage";
 
 const routes = [
 	{
@@ -23,7 +24,7 @@ const routes = [
 	{
 		path: "/home",
 		name: "Dashboard",
-		component: AdminLayout,
+		component: HomePage,
 		meta: {
 			auth: true
 		}
@@ -56,14 +57,24 @@ const routes = [
 		}
 	},
 
-		{
+	{
 		path: "/vaccines",
 		name: "Vaccines",
 		component: VaccinesPage,
 		meta: {
 			auth: true
 		}
+	},
+
+	{
+		path: "/extractions",
+		name: "Extractions",
+		component: ExtractionsPage,
+		meta: {
+			auth: true
+		}
 	}
+
 
 ];
 
