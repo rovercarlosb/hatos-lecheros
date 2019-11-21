@@ -24,7 +24,12 @@ Vue.use(eventBus)
 Vue.use(VueRouter);
 Vue.use(VueAxios,axios);
 
-axios.defaults.baseURL = 'http://hatos-lecheros.test/api';
+
+const protocol = window.location.protocol;
+const domain = window.location.host;
+axios.defaults.baseURL = `${protocol}//${domain}/api`;
+
+// axios.defaults.baseURL = 'http://hatos-lecheros.test/api';
 
 const router = new VueRouter({
 
