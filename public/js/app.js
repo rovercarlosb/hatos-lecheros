@@ -92028,7 +92028,10 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.use(_plugins_event_bus_js__WEBPACK_IMPORTED_MODULE_5__["default"]);
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 Vue.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
-axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.baseURL = 'http://hatos-lecheros.test/api';
+var protocol = window.location.protocol;
+var domain = window.location.host;
+axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.baseURL = "".concat(protocol, "//").concat(domain, "/api"); // axios.defaults.baseURL = 'http://hatos-lecheros.test/api';
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: _routes_js__WEBPACK_IMPORTED_MODULE_4__["default"],
   mode: 'history'
