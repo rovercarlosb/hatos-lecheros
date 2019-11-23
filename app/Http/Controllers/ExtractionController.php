@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ExtractionStoreRequest;
 use App\Models\Extraction\Extraction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ExtractionController extends Controller {
@@ -12,6 +13,14 @@ class ExtractionController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
+
+	public $extraction;
+
+	public function __construct() {
+
+		$this->extraction = new Extraction();
+	}
+
 	public function index() {
 		$extractions = Extraction::all();
 
@@ -21,13 +30,16 @@ class ExtractionController extends Controller {
 		], 200);
 	}
 
-	public function todayExtractions() {
+	public function stadisticsExtractions() {
 
-		$extractions = Extraction::whereDate('date', date('Y-m-d'))->get();
-
+		$todayExtractions = Extraction::today()->get();
+		$fromDate = Carbon::now()->startOfWeek()->toDateString();
+		$tillDate = Carbon::now()->toDateString();
+		$weekExtractions = $this->extraction->getExtractionsForWeek($fromDate, $tillDate);
 		return response([
 			'status' => 'success',
-			'data' => $extractions,
+			'today_extractions' => $todayExtractions,
+			'week_extractions' => $weekExtractions,
 		], 200);
 
 	}

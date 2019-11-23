@@ -12,9 +12,7 @@
 						 </slot>
 
 					</div>
-						 <div class="row">
-						 	<slot name="body"></slot>	
-						 </div>
+					 	<slot name="body"></slot>	
 
 				</main>
 			</div>

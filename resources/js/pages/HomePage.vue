@@ -5,16 +5,28 @@
 		</template>
 
 		<template v-slot:body>
-			<div class="col-md-6">
-				<card header="Litros ordeñados del dia" title="Cantidad">
-					<b>{{ milkExtratedToday }} lts</b>
-				</card>
+			<div class="row">
+				<div class="col-md-6">
+					<card header="Litros ordeñados del dia" title="Cantidad">
+						<b>{{ milkExtratedToday }} lts</b>
+					</card>
+				</div>
+				<div class="col-md-6">
+					<card header="Numero actual de reses del hato" title="Cantidad">
+						<b>{{ totalCows }}</b>
+					</card>
+				</div>				
 			</div>
-			<div class="col-md-6">
-				<card header="Numero actual de reses del hato" title="Cantidad">
-					<b>{{ totalCows }}</b>
-				</card>
+			
+			<br>
+			
+			<div class="row">
+				<div class="col-md-8 offset-2">
+					<h5 class="text-center"> Extraccion de leche de esta semana por litro</h5>
+					<chart :chart-data="chartData" :options="options"></chart>											
+				</div>
 			</div>
+
 		</template>
 	</admin-layout>
 </template>
@@ -22,15 +34,18 @@
 <script>
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import Card from "@/components/Card.vue";
+import Chart from "@/components/Chart.vue";
 
 export default {
 	name: "HomePage",
 
 	data: () =>({
 
+			chartData: null,
+		    options: { responsive: true, maintainAspectRatio: false },
 			extractions: [],
 			totalCows: 0,
-			fetchExtractionsTodayUrl: "/extractions/today",
+			fetchExtractionsUrl: "/extractions/stadistics",
 			fetchTotalCowsUrl: "/cows/total",
 			loaded: true
 	}),
@@ -38,12 +53,14 @@ export default {
 	components: {
 		AdminLayout,
 		Card,
+		Chart,
 	},
 
 	methods: {
-		fetchExtractionsToday(url) {
+		fetchExtractionsStadistics(url) {
 			axios.get(url).then(response => {
-				this.extractions = response.data.data;
+				this.setChartData(response.data.week_extractions);
+				this.extractions = response.data.today_extractions;
 			});
 		},
 
@@ -52,10 +69,33 @@ export default {
 				this.totalCows = response.data.data;
 			});
 		},
-	},
+
+		setChartData(data) {
+		        this.chartData = {
+		          // labels: [
+		          //   "January",
+		          //   "February",
+		          //   "March",
+		          //   "April",
+		          //   "May",
+		          //   "June",
+		          //   "July"
+		          // ],
+		          labels: Object.keys(data),
+		          datasets: [
+		            {
+		              label: "Dias de la semana",
+		              backgroundColor: 'green',
+		              // data: [40, 39, 10, 40, 39, 80, 40]
+		              data: Object.values(data)
+		            }
+		          ]
+		        };
+		    }
+		},
 
 	created() {
-		this.fetchExtractionsToday(this.fetchExtractionsTodayUrl);
+		this.fetchExtractionsStadistics(this.fetchExtractionsUrl);
 		this.fetchTotalCows(this.fetchTotalCowsUrl);
 	},
 

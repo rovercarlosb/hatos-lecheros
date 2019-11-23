@@ -1,19 +1,12 @@
 <script>
-import { Bar } from 'vue-chartjs'
+import VueChartJS from 'vue-chartjs'
 
 export default {
   name: 'Chart',
-  extends: Bar,
-  props: {
-    chartdata: {
-      type: Object,
-      default: null
-    },
-    options: {
-      type: Object,
-      default: null
-    }
-  },
+  extends: VueChartJS.Line,
+  props: ["chartData", "options"],
+  mixins: [VueChartJS.mixins.reactiveProp],
+
   mounted () {
     this.renderChart(this.chartdata, this.options)
   }
