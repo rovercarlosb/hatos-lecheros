@@ -125,9 +125,6 @@ export default {
 		}
 	},
 
-	updated(){
-		this.$destroy();
-	}
 };
 </script>
 

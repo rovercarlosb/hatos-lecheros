@@ -7,6 +7,18 @@ use App\Models\Vaccine\Vaccine;
 use Illuminate\Http\Request;
 
 class VaccineController extends Controller {
+
+	public function countTotalToday() {
+
+		$total = Vaccine::today()->count();
+
+		return response([
+			'status' => 'success',
+			'data' => $total,
+		], 200);
+
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *

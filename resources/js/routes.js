@@ -5,6 +5,7 @@ import EmployeesPage from "./pages/employees/EmployeesPage";
 import CowsPage from "./pages/cows/CowsPage";
 import VaccinesPage from "./pages/vaccines/VaccinesPage";
 import ExtractionsPage from "./pages/extractions/ExtractionsPage";
+import StadisticsPage from './pages/stadistics/StadisticsPage';
 
 const routes = [
 	{
@@ -70,6 +71,15 @@ const routes = [
 		path: "/extractions",
 		name: "Extractions",
 		component: ExtractionsPage,
+		meta: {
+			auth: true
+		}
+	},
+
+	{
+		path: "/stadistics",
+		name: "Stadistics",
+		component: StadisticsPage,
 		meta: {
 			auth: true
 		}

@@ -61,10 +61,19 @@
 			<h6
 				class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
 			>
-				<span>Reportes</span>
+				<span>Estadisticas</span>
 			</h6>
 			<ul class="nav flex-column mb-2">
 				<li class="nav-item">
+					<router-link
+						tag="a"
+						:to="{ name: 'Stadistics' }"
+						class="nav-link"
+					>
+						<font-awesome-icon icon="chart-pie" />
+
+						Extraccion de leche
+					</router-link>
 				</li>
 				<li class="nav-item">
 				</li>

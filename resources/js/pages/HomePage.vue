@@ -1,7 +1,7 @@
 <template>
 	<admin-layout>
 		<template v-slot:header>
-			<h3 class="text-center">ESTADISTICAS</h3>
+			<h3 class="text-center">INICIO</h3>
 		</template>
 
 		<template v-slot:body>
@@ -21,9 +21,10 @@
 			<br>
 			
 			<div class="row">
-				<div class="col-md-8 offset-2">
-					<h5 class="text-center"> Extraccion de leche de esta semana por litro</h5>
-					<chart :chart-data="chartData" :options="options"></chart>											
+				<div class="col-md-12">
+					<card header="Vacunas aplicadas del dia" title="Cantidad">
+						<b>{{ totalVaccines }}</b>
+					</card>
 				</div>
 			</div>
 
@@ -34,35 +35,32 @@
 <script>
 import AdminLayout from "@/layouts/AdminLayout.vue";
 import Card from "@/components/Card.vue";
-import Chart from "@/components/Chart.vue";
 
 export default {
 	name: "HomePage",
 
 	data: () =>({
-
-			chartData: null,
-		    options: { responsive: true, maintainAspectRatio: false },
 			extractions: [],
+			totalVaccines: 0,
 			totalCows: 0,
 			fetchExtractionsUrl: "/extractions/stadistics",
 			fetchTotalCowsUrl: "/cows/total",
-			loaded: true
+			fetchTotalVaccinesUrl: "/vaccines/total/today",
 	}),
 
 	components: {
 		AdminLayout,
 		Card,
-		Chart,
 	},
 
 	methods: {
 		fetchExtractionsStadistics(url) {
 			axios.get(url).then(response => {
-				this.setChartData(response.data.week_extractions);
 				this.extractions = response.data.today_extractions;
 			});
 		},
+
+
 
 		fetchTotalCows(url) {
 			axios.get(url).then(response => {
@@ -70,33 +68,19 @@ export default {
 			});
 		},
 
-		setChartData(data) {
-		        this.chartData = {
-		          // labels: [
-		          //   "January",
-		          //   "February",
-		          //   "March",
-		          //   "April",
-		          //   "May",
-		          //   "June",
-		          //   "July"
-		          // ],
-		          labels: Object.keys(data),
-		          datasets: [
-		            {
-		              label: "Dias de la semana",
-		              backgroundColor: 'green',
-		              // data: [40, 39, 10, 40, 39, 80, 40]
-		              data: Object.values(data)
-		            }
-		          ]
-		        };
-		    }
+		fetchTotalVaccines(url) {
+			axios.get(url).then(response => {
+				this.totalVaccines = response.data.data;
+			});
 		},
+
+
+	},
 
 	created() {
 		this.fetchExtractionsStadistics(this.fetchExtractionsUrl);
 		this.fetchTotalCows(this.fetchTotalCowsUrl);
+		this.fetchTotalVaccines(this.fetchTotalVaccinesUrl);
 	},
 
 	computed: {

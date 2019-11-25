@@ -4,11 +4,13 @@ namespace App\Models\Vaccine;
 
 use App\Models\Vaccine\VaccineMutator;
 use App\Models\Vaccine\VaccineRelationship;
+use App\Models\Vaccine\VaccineScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Vaccine extends Model {
 
-	use VaccineRelationship,
+	use VaccineScope,
+	VaccineRelationship,
 		VaccineMutator;
 
 	protected $guarded = [];

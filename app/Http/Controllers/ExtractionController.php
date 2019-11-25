@@ -36,10 +36,13 @@ class ExtractionController extends Controller {
 		$fromDate = Carbon::now()->startOfWeek()->toDateString();
 		$tillDate = Carbon::now()->toDateString();
 		$weekExtractions = $this->extraction->getExtractionsForWeek($fromDate, $tillDate);
+		$monthExtractions = $this->extraction->getExtractionsForMonth();
+
 		return response([
 			'status' => 'success',
 			'today_extractions' => $todayExtractions,
 			'week_extractions' => $weekExtractions,
+			'month_extractions' => $monthExtractions,
 		], 200);
 
 	}

@@ -44,6 +44,7 @@ Route::group(['middleware' => 'jwt.auth'], function () {
 
 	//Vaccines
 	Route::post('/vaccine/register', 'VaccineController@register');
+	Route::get('/vaccines/total/today', 'VaccineController@countTotalToday');
 	Route::get('/vaccines', 'VaccineController@index');
 	Route::put('/vaccine/update/{vaccine}', 'VaccineController@update');
 	Route::delete('/vaccine/delete/{vaccine}', 'VaccineController@delete');

@@ -12813,7 +12813,15 @@ __webpack_require__.r(__webpack_exports__);
   props: ["chartData", "options"],
   mixins: [vue_chartjs__WEBPACK_IMPORTED_MODULE_0__["default"].mixins.reactiveProp],
   mounted: function mounted() {
+    this.$refs.canvas.id = Math.random();
     this.renderChart(this.chartdata, this.options);
+  },
+  methods: {
+    refresh: function refresh() {
+      this.$refs.canvas.width = 300;
+      this.$refs.canvas.height = 300;
+      this.$refs.canvas.style = 'display: block; width: 396px; height: 400px;';
+    }
   }
 });
 
@@ -12960,7 +12968,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _layouts_AdminLayout_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/layouts/AdminLayout.vue */ "./resources/js/layouts/AdminLayout.vue");
 /* harmony import */ var _components_Card_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Card.vue */ "./resources/js/components/Card.vue");
-/* harmony import */ var _components_Chart_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/components/Chart.vue */ "./resources/js/components/Chart.vue");
 //
 //
 //
@@ -12994,37 +13001,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomePage",
   data: function data() {
     return {
-      chartData: null,
-      options: {
-        responsive: true,
-        maintainAspectRatio: false
-      },
       extractions: [],
+      totalVaccines: 0,
       totalCows: 0,
       fetchExtractionsUrl: "/extractions/stadistics",
       fetchTotalCowsUrl: "/cows/total",
-      loaded: true
+      fetchTotalVaccinesUrl: "/vaccines/total/today"
     };
   },
   components: {
     AdminLayout: _layouts_AdminLayout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Card: _components_Card_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    Chart: _components_Chart_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Card: _components_Card_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   methods: {
     fetchExtractionsStadistics: function fetchExtractionsStadistics(url) {
       var _this = this;
 
       axios.get(url).then(function (response) {
-        _this.setChartData(response.data.week_extractions);
-
         _this.extractions = response.data.today_extractions;
       });
     },
@@ -13035,30 +13035,18 @@ __webpack_require__.r(__webpack_exports__);
         _this2.totalCows = response.data.data;
       });
     },
-    setChartData: function setChartData(data) {
-      this.chartData = {
-        // labels: [
-        //   "January",
-        //   "February",
-        //   "March",
-        //   "April",
-        //   "May",
-        //   "June",
-        //   "July"
-        // ],
-        labels: Object.keys(data),
-        datasets: [{
-          label: "Dias de la semana",
-          backgroundColor: 'green',
-          // data: [40, 39, 10, 40, 39, 80, 40]
-          data: Object.values(data)
-        }]
-      };
+    fetchTotalVaccines: function fetchTotalVaccines(url) {
+      var _this3 = this;
+
+      axios.get(url).then(function (response) {
+        _this3.totalVaccines = response.data.data;
+      });
     }
   },
   created: function created() {
     this.fetchExtractionsStadistics(this.fetchExtractionsUrl);
     this.fetchTotalCows(this.fetchTotalCowsUrl);
+    this.fetchTotalVaccines(this.fetchTotalVaccinesUrl);
   },
   computed: {
     milkExtratedToday: function milkExtratedToday() {
@@ -13961,6 +13949,143 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _layouts_AdminLayout_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/layouts/AdminLayout.vue */ "./resources/js/layouts/AdminLayout.vue");
+/* harmony import */ var _components_Chart_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/Chart.vue */ "./resources/js/components/Chart.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "StadisticsPage",
+  data: function data() {
+    return {
+      weekData: null,
+      monthData: null,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      },
+      fetchExtractionsUrl: "/extractions/stadistics"
+    };
+  },
+  components: {
+    AdminLayout: _layouts_AdminLayout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    Chart: _components_Chart_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  methods: {
+    fetchExtractionsStadistics: function fetchExtractionsStadistics(url) {
+      var _this = this;
+
+      axios.get(url).then(function (response) {
+        _this.setWeekData(response.data.week_extractions);
+
+        _this.setMonthData(response.data.month_extractions);
+      });
+    },
+    setWeekData: function setWeekData(data) {
+      this.weekData = {
+        // labels: [
+        //   "January",
+        //   "February",
+        //   "March",
+        //   "April",
+        //   "May",
+        //   "June",
+        //   "July"
+        // ],
+        labels: Object.keys(data),
+        datasets: [{
+          label: "Dias de la semana",
+          backgroundColor: 'green',
+          // data: [40, 39, 10, 40, 39, 80, 40]
+          data: Object.values(data)
+        }]
+      };
+    },
+    setMonthData: function setMonthData(data) {
+      this.monthData = {
+        // labels: [
+        //   "January",
+        //   "February",
+        //   "March",
+        //   "April",
+        //   "May",
+        //   "June",
+        //   "July"
+        // ],
+        labels: Object.keys(data),
+        datasets: [{
+          label: "Semanas",
+          backgroundColor: 'blue',
+          // data: [40, 39, 10, 40, 39, 80, 40]
+          data: Object.values(data)
+        }]
+      };
+    },
+    refreshChart: function refreshChart() {
+      this.$refs.chart.refresh();
+    }
+  },
+  created: function created() {
+    this.fetchExtractionsStadistics(this.fetchExtractionsUrl);
+  },
+  computed: {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users/FormUser.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/users/FormUser.vue?vue&type=script&lang=js& ***!
@@ -14327,9 +14452,6 @@ __webpack_require__.r(__webpack_exports__);
         _this2.employees = response.data.data;
       });
     }
-  },
-  updated: function updated() {
-    this.$destroy();
   }
 });
 
@@ -14455,6 +14577,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -85765,9 +85896,7 @@ var render = function() {
       {
         key: "header",
         fn: function() {
-          return [
-            _c("h3", { staticClass: "text-center" }, [_vm._v("ESTADISTICAS")])
-          ]
+          return [_c("h3", { staticClass: "text-center" }, [_vm._v("INICIO")])]
         },
         proxy: true
       },
@@ -85818,15 +85947,18 @@ var render = function() {
             _c("div", { staticClass: "row" }, [
               _c(
                 "div",
-                { staticClass: "col-md-8 offset-2" },
+                { staticClass: "col-md-12" },
                 [
-                  _c("h5", { staticClass: "text-center" }, [
-                    _vm._v(" Extraccion de leche de esta semana por litro")
-                  ]),
-                  _vm._v(" "),
-                  _c("chart", {
-                    attrs: { "chart-data": _vm.chartData, options: _vm.options }
-                  })
+                  _c(
+                    "card",
+                    {
+                      attrs: {
+                        header: "Vacunas aplicadas del dia",
+                        title: "Cantidad"
+                      }
+                    },
+                    [_c("b", [_vm._v(_vm._s(_vm.totalVaccines))])]
+                  )
                 ],
                 1
               )
@@ -87326,6 +87458,184 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=template&id=43477276&scoped=true&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=template&id=43477276&scoped=true& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("admin-layout", {
+    scopedSlots: _vm._u([
+      {
+        key: "header",
+        fn: function() {
+          return [
+            _c("h3", { staticClass: "text-center" }, [_vm._v("ESTADISTICAS")])
+          ]
+        },
+        proxy: true
+      },
+      {
+        key: "body",
+        fn: function() {
+          return [
+            _c(
+              "ul",
+              {
+                staticClass: "nav nav-tabs",
+                attrs: { id: "myTab", role: "tablist" }
+              },
+              [
+                _c("li", { staticClass: "nav-item" }, [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "nav-link active",
+                      attrs: {
+                        id: "week-tab",
+                        "data-toggle": "tab",
+                        href: "#week",
+                        role: "tab",
+                        "aria-controls": "week",
+                        "aria-selected": "true"
+                      }
+                    },
+                    [_vm._v("Extraccion de la semana")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  {
+                    staticClass: "nav-item",
+                    on: {
+                      "~click": function($event) {
+                        return _vm.refreshChart($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "nav-link",
+                        attrs: {
+                          id: "month-tab",
+                          "data-toggle": "tab",
+                          href: "#month",
+                          role: "tab",
+                          "aria-controls": "month",
+                          "aria-selected": "false"
+                        }
+                      },
+                      [_vm._v("Extraccion del mes")]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "tab-content", attrs: { id: "myTabContent" } },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade show active",
+                    attrs: {
+                      id: "week",
+                      role: "tabpanel",
+                      "aria-labelledby": "week-tab"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-8 offset-2" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("h5", { staticClass: "text-center" }, [
+                            _vm._v(
+                              " Extraccion de leche de esta semana por litro"
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("chart", {
+                            attrs: {
+                              "chart-data": _vm.weekData,
+                              options: _vm.options
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "tab-pane fade",
+                    attrs: {
+                      id: "month",
+                      role: "tabpanel",
+                      "aria-labelledby": "month-tab"
+                    }
+                  },
+                  [
+                    _c("div", { staticClass: "row" }, [
+                      _c(
+                        "div",
+                        { staticClass: "col-md-8 offset-2" },
+                        [
+                          _c("br"),
+                          _vm._v(" "),
+                          _c("h5", { staticClass: "text-center" }, [
+                            _vm._v(" Extraccion de leche de este mes por litro")
+                          ]),
+                          _vm._v(" "),
+                          _c("chart", {
+                            ref: "chart",
+                            attrs: {
+                              "chart-data": _vm.monthData,
+                              options: _vm.options
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ])
+                  ]
+                )
+              ]
+            )
+          ]
+        },
+        proxy: true
+      }
+    ])
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/users/FormUser.vue?vue&type=template&id=b22b54c2&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/users/FormUser.vue?vue&type=template&id=b22b54c2&scoped=true& ***!
@@ -88244,7 +88554,33 @@ var render = function() {
         _vm._v(" "),
         _vm._m(0),
         _vm._v(" "),
-        _vm._m(1)
+        _c("ul", { staticClass: "nav flex-column mb-2" }, [
+          _c(
+            "li",
+            { staticClass: "nav-item" },
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "nav-link",
+                  attrs: { tag: "a", to: { name: "Stadistics" } }
+                },
+                [
+                  _c("font-awesome-icon", { attrs: { icon: "chart-pie" } }),
+                  _vm._v("\n\n\t\t\t\t\tExtraccion de leche\n\t\t\t\t")
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" }),
+          _vm._v(" "),
+          _c("li", { staticClass: "nav-item" })
+        ])
       ])
     ]
   )
@@ -88260,22 +88596,8 @@ var staticRenderFns = [
         staticClass:
           "sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
       },
-      [_c("span", [_vm._v("Reportes")])]
+      [_c("span", [_vm._v("Estadisticas")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "nav flex-column mb-2" }, [
-      _c("li", { staticClass: "nav-item" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" }),
-      _vm._v(" "),
-      _c("li", { staticClass: "nav-item" })
-    ])
   }
 ]
 render._withStripped = true
@@ -109676,6 +109998,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/pages/stadistics/StadisticsPage.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/pages/stadistics/StadisticsPage.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StadisticsPage_vue_vue_type_template_id_43477276_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StadisticsPage.vue?vue&type=template&id=43477276&scoped=true& */ "./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=template&id=43477276&scoped=true&");
+/* harmony import */ var _StadisticsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./StadisticsPage.vue?vue&type=script&lang=js& */ "./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _StadisticsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _StadisticsPage_vue_vue_type_template_id_43477276_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _StadisticsPage_vue_vue_type_template_id_43477276_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "43477276",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/pages/stadistics/StadisticsPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StadisticsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./StadisticsPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StadisticsPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=template&id=43477276&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=template&id=43477276&scoped=true& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StadisticsPage_vue_vue_type_template_id_43477276_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./StadisticsPage.vue?vue&type=template&id=43477276&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/pages/stadistics/StadisticsPage.vue?vue&type=template&id=43477276&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StadisticsPage_vue_vue_type_template_id_43477276_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_StadisticsPage_vue_vue_type_template_id_43477276_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/pages/users/FormUser.vue":
 /*!***********************************************!*\
   !*** ./resources/js/pages/users/FormUser.vue ***!
@@ -110143,6 +110534,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_cows_CowsPage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pages/cows/CowsPage */ "./resources/js/pages/cows/CowsPage.vue");
 /* harmony import */ var _pages_vaccines_VaccinesPage__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./pages/vaccines/VaccinesPage */ "./resources/js/pages/vaccines/VaccinesPage.vue");
 /* harmony import */ var _pages_extractions_ExtractionsPage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./pages/extractions/ExtractionsPage */ "./resources/js/pages/extractions/ExtractionsPage.vue");
+/* harmony import */ var _pages_stadistics_StadisticsPage__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./pages/stadistics/StadisticsPage */ "./resources/js/pages/stadistics/StadisticsPage.vue");
+
 
 
 
@@ -110199,6 +110592,13 @@ var routes = [{
   path: "/extractions",
   name: "Extractions",
   component: _pages_extractions_ExtractionsPage__WEBPACK_IMPORTED_MODULE_6__["default"],
+  meta: {
+    auth: true
+  }
+}, {
+  path: "/stadistics",
+  name: "Stadistics",
+  component: _pages_stadistics_StadisticsPage__WEBPACK_IMPORTED_MODULE_7__["default"],
   meta: {
     auth: true
   }
